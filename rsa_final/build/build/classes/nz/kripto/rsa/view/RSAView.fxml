@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.kripto.rsa.view.RSAViewController">
+   <children>
+      <SplitPane dividerPositions="0.5087719298245614" layoutX="266.0" layoutY="114.0" prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="background" stylesheets="@DarkTheme.css">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="127.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@woman.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="188.0" layoutY="204.0" text="ALISA" />
+                  <Button layoutX="51.0" layoutY="237.0" mnemonicParsing="false" onAction="#handleGenerateP" text="Generiši P" />
+                  <Button layoutX="50.0" layoutY="275.0" mnemonicParsing="false" onAction="#handleGenerateQ" text="Generiši Q" />
+                  <Button layoutX="51.0" layoutY="315.0" mnemonicParsing="false" onAction="#handleGenerateE" text="Generiši E" />
+                  <TextField fx:id="poruka" layoutX="109.0" layoutY="414.0" promptText="Unesite tekst" />
+                  <Button layoutX="149.0" layoutY="459.0" mnemonicParsing="false" onAction="#handleEncrypt" text="Pošalji tekst" />
+                  <Button layoutX="60.0" layoutY="369.0" mnemonicParsing="false" onAction="#showD" text="Prikazi D" />
+                  <Button layoutX="148.0" layoutY="369.0" mnemonicParsing="false" onAction="#showN" text="Prikazi N" />
+                  <Button layoutX="251.0" layoutY="369.0" mnemonicParsing="false" onAction="#showPhi" text="Prikazi PHI" />
+                  <Button layoutX="185.0" layoutY="237.0" mnemonicParsing="false" onAction="#showP" text="Prikazi P" />
+                  <Button layoutX="185.0" layoutY="275.0" mnemonicParsing="false" onAction="#showQ" text="Prikazi Q" />
+                  <Button layoutX="185.0" layoutY="315.0" mnemonicParsing="false" onAction="#showE" text="Prikazi E" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="background" stylesheets="@DarkTheme.css">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="120.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@man.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="181.0" layoutY="200.0" text="BOB" />
+                  <Label layoutX="29.0" layoutY="241.0" text="Kriptovana poruka:" />
+                  <Button layoutX="144.0" layoutY="283.0" mnemonicParsing="false" onAction="#handleDecrypt" text="Izvrši dekripciju" />
+                  <Label layoutX="29.0" layoutY="330.0" text="Dekriptovana u bitima:" />
+                  <Label layoutX="29.0" layoutY="373.0" text="Sadrzaj poruke:" />
+                  <Button layoutX="173.0" layoutY="233.0" mnemonicParsing="false" onAction="#showEncrypted" text="Prikazi" />
+                  <Button layoutX="210.0" layoutY="324.0" mnemonicParsing="false" onAction="#showDecryptedByte" text="Prikazi" />
+                  <Button layoutX="210.0" layoutY="367.0" mnemonicParsing="false" onAction="#showDecrypted" text="Prikazi" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

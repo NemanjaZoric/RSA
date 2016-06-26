@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="rsa_final.jnlp">
+  <information>
+    <title>rsa_final</title>
+    <vendor>Nemanja Zoric</vendor>
+    <description>RSA</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="rsa_final.jar" size="84537" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="0" height="0" main-class="nz.kripto.rsa.MainApp"  name="RSA" />
+  <update check="background"/>
+</jnlp>
