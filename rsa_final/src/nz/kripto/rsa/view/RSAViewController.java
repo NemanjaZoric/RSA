@@ -1,16 +1,25 @@
 package nz.kripto.rsa.view;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import nz.kripto.rsa.MainApp;
 
 /**
@@ -38,6 +47,7 @@ public class RSAViewController {
 	@FXML BigInteger e; //eksponent za enkripciju
 	@FXML BigInteger d; //tajni kljuc, eksponent za dekripciju
 	@FXML BigInteger phi;
+	@FXML String fajl; 	//string za fajl element
 	
 	
 	//Labele za ispisivanje vrijednosti. Neke od njih se ne koriste jer su zamijenjene
@@ -48,15 +58,15 @@ public class RSAViewController {
 	@FXML Label kriptovana;
 	@FXML Label dekriptovanaBit;
 	@FXML Label dekriptovana;
-	@FXML TextField poruka;
+	@FXML TextArea poruka;
 	@FXML Label dLabel;
 	@FXML Label nLabel;
 	@FXML Label phiLabel;
 	
 	byte[] encrypted; //niz za enkripciju
 	byte[] decrypted; //niz za dekripciju
-	int bitlength = 1024;
-	int blocksize = 256;
+	int bitlength = 4096;	//povecana sa 1024 na 4096 zbog mogucnosti kriptovanja veceg teksta
+	int blocksize = 1024;
 	
 	private MainApp mainApp;
 	
@@ -95,10 +105,50 @@ public class RSAViewController {
 		//d je eksponent dekripcije
 		d = e.modInverse(phi);
 	}
+	
+	/*Funkcija koju pozivamo na klik dugmeta FAJL, izaberemo tekstualni fajl.*/
+	@FXML
+	private void getFile(){
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File file = fileChooser.showOpenDialog(null);
+		if(file!=null){
+			//U string fajl smjestamo ono sto smo procitali iz odabranog fajla
+			fajl = new String(readFile(file));
+			//Taj string smjestamo u tekstualno polje
+			poruka.setText(fajl);
+		}
+	}
+	
+	//Funkcija za prevodjenje fajla u string
+	private String readFile(File file){
+		StringBuilder stringBuffer = new StringBuilder();
+		BufferedReader bufferedReader = null;
+		try {
+			bufferedReader = new BufferedReader(new FileReader(file));
+			String text;
+			while ((text = bufferedReader.readLine()) != null) {
+				stringBuffer.append(text);
+			}
+		}
+		catch(FileNotFoundException ex){
+			Logger.getLogger(RSAViewController.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (IOException ex) {
+			Logger.getLogger(RSAViewController.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			try {
+				bufferedReader.close();
+			} catch (IOException ex) {
+				Logger.getLogger(RSAViewController.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+		return stringBuffer.toString();
+	}
 
 	@FXML
 	private void handleEncrypt(){
-		String teststring = poruka.getText(); //uzimamo uneseni string
+		String teststring = new String(poruka.getText()); //uzimamo uneseni string
 		encrypted = encrypt(teststring.getBytes()); //pozivamo metod encrypt
 		//String writeEncryptedInBytes = bytesToString(encrypted); 
 		//kriptovana.setText(writeEncryptedInBytes); //upisujemo encryptovani string u bajtovima
